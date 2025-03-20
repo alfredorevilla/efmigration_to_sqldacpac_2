@@ -4,8 +4,8 @@
     $SourceConnectionString = "Server=(localdb)\mssqllocaldb; Database=efmigration_to_sqldacpac_2_publish",
     [parameter(Mandatory = $true)]
     [String]
-    $MigrationName
+    $FileName
 )
 
-Start-Process sqlpackage.exe -ArgumentList "/a:Extract /SourceConnectionString:""$SourceConnectionString"" /TargetFile:$MigrationName.dacpac" -NoNewWindow -Wait
+Start-Process sqlpackage.exe -ArgumentList "/a:Extract /SourceConnectionString:""$SourceConnectionString"" /TargetFile:$FileName.dacpac" -NoNewWindow -Wait
 
