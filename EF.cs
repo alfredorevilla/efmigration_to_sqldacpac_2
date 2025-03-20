@@ -10,13 +10,28 @@ public class Entity1
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    [StringLength(50)]
+    [StringLength(25)]
+    public string? Name { get; set; }
+}
+
+public class Entity2
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    [StringLength(25)]
     public string? Name { get; set; }
 }
 
 public class SampleDbContext : DbContext
 {
     public DbSet<Entity1>? Entity1
+    {
+        get; set;
+    }
+
+    public DbSet<Entity2>? Entity2
     {
         get; set;
     }
