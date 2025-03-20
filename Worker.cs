@@ -1,23 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace efmigration_to_sqldacpac_2;
 
-public class Worker : BackgroundService
+public class Worker(ILogger<Worker> logger, SampleDbContext dbContext) : IHostedService
 {
-    private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        _logger = logger;
+        var count = await dbContext.Entity1!.CountAsync(cancellationToken);
+        logger.LogInformation("Entity1 count: {Count}", count);
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task StopAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
-            await Task.Delay(1000, stoppingToken);
-        }
+        await Task.CompletedTask;
     }
 }

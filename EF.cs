@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace efmigration_to_sqldacpac_2;
 
@@ -16,12 +16,12 @@ public class Entity1
 
 public class SampleDbContext : DbContext
 {
-    public SampleDbContext() : base(nameOrConnectionString: "DefaultConnection")
-    {
-    }
-
     public DbSet<Entity1>? Entity1
     {
         get; set;
+    }
+
+    public SampleDbContext(DbContextOptions<SampleDbContext> dbContextOptions) : base(dbContextOptions)
+    {
     }
 }
